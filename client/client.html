@@ -10,6 +10,8 @@
       //grab the content section
       const content = document.querySelector("#content");
       
+      console.dir(xhr);
+
       ///parse the response text into a JSON object
       const obj = JSON.parse(xhr.response);
       
@@ -21,9 +23,27 @@
           break;
         case 400: //bad request 
           content.innerHTML = `<b>Bad Request</b>`;
+          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+          break;
+        case 401: //unauthorized
+          content.innerHTML = `<b>Unauthorized</b>`;
+          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+          break;
+        case 403: //forbidden
+          content.innerHTML = `<b>Forbidden</b>`;
+          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
           break;
         case 404: //not found (requested resource does not exist)
           content.innerHTML = `<b>Resource Not Found</b>`;
+          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+          break;
+        case 500: //server error
+          content.innerHTML = `<b>Internal Server Error</b>`;
+          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+          break;
+        case 501: //not implemented
+          content.innerHTML = `<b>Not Implemented</b>`;
+          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
           break;
         default: //default other errors we are not handling in this example
           content.innerHTML = `Error code not implemented by client.`;

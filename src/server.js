@@ -7,8 +7,15 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 const urlStruct = {
   '/': responseHandler.getIndex,
   '/success': responseHandler.success,
+  '/badRequest': responseHandler.badRequest,
+  '/unauthorized': responseHandler.unauthorized,
+  '/forbidden': responseHandler.forbidden,
+  '/internal': responseHandler.internalError,
+  '/notImplemented': responseHandler.notImplemented,
+  '/notFound': responseHandler.notFound,
   '/style.css': responseHandler.getCSS,
   index: responseHandler.getIndex,
+  notFound: responseHandler.notFound,
 };
 
 const onRequest = (request, response) => {
@@ -19,7 +26,7 @@ const onRequest = (request, response) => {
   if (urlStruct[parsedUrl.pathname]) {
     urlStruct[parsedUrl.pathname](request, response, acceptedTypes);
   } else {
-    // urlStruct.index(request, response);
+    urlStruct.notFound(request, response, acceptedTypes);
   }
 };
 
