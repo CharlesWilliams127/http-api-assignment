@@ -17,6 +17,7 @@
       switch(xhr.status) {
         case 200: //success
           content.innerHTML = `<b>Success</b>`;
+          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
           break;
         case 400: //bad request 
           content.innerHTML = `<b>Bad Request</b>`;
@@ -48,19 +49,21 @@
 
     //initialization function
     const init = () => {
-      const selection =  document.querySelector("#page");
-      const selectedText = selection.options[];
-      console.dir(successButton);
+      
       
       //functions to call sendAjax for us with the correct parameters
-      const success = () => sendAjax('/success');
-      const badRequest = () => sendAjax('/badRequest');
-      const notFound = () => sendAjax('/notFoundURL');
+
+      const ajaxSend = () => {
+        const selection =  document.querySelector("#page");
+        const selectedValue = selection.options[selection.selectedIndex].value;
+
+        sendAjax(selectedValue);
+      };
       
+      const sendButton = document.querySelector("#send");
+
       //attach the correct functions to the correct events
-      successButton.addEventListener('click', success);
-      //badRequestButton.addEventListener('click', badRequest);
-      //notFoundButton.addEventListener('click', notFound);
+      sendButton.addEventListener('click', ajaxSend);
     };
     window.onload = init;
   </script>
