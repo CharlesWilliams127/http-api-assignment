@@ -52,7 +52,7 @@
     };
 
     //function to send ajax
-    const sendAjax = (url) => {
+    const sendAjax = (url, type) => {
       //create a new xhr (ajax) request. 
       //Remember that these are ASYNCHRONOUS
       const xhr = new XMLHttpRequest();
@@ -60,7 +60,7 @@
       xhr.open('GET', url);
       //Set the accept headers to the desired response mime type
       //Server does NOT have to support this. It is a gentle request.
-      xhr.setRequestHeader ("Accept", 'application/json');
+      xhr.setRequestHeader ("Accept", type);
       //When the xhr loads, call handleResponse and pass the xhr object
       xhr.onload = () => handleResponse(xhr);
       //send our ajax request to the server
@@ -77,7 +77,10 @@
         const selection =  document.querySelector("#page");
         const selectedValue = selection.options[selection.selectedIndex].value;
 
-        sendAjax(selectedValue);
+        const typeSelection =  document.querySelector("#type");
+        const typeSelectedValue = selection.options[typeSelection.selectedIndex].value;
+
+        sendAjax(selectedValue, typeSelectedValue);
       };
       
       const sendButton = document.querySelector("#send");
