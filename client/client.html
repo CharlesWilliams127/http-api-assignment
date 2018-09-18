@@ -9,45 +9,84 @@
     const handleResponse = (xhr) => {
       //grab the content section
       const content = document.querySelector("#content");
-      
-      console.dir(xhr);
 
-      ///parse the response text into a JSON object
-      const obj = JSON.parse(xhr.response);
-      
-      //check the xhr status code and handle accordingly
-      switch(xhr.status) {
-        case 200: //success
-          content.innerHTML = `<b>Success</b>`;
-          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
-          break;
-        case 400: //bad request 
-          content.innerHTML = `<b>Bad Request</b>`;
-          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
-          break;
-        case 401: //unauthorized
-          content.innerHTML = `<b>Unauthorized</b>`;
-          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
-          break;
-        case 403: //forbidden
-          content.innerHTML = `<b>Forbidden</b>`;
-          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
-          break;
-        case 404: //not found (requested resource does not exist)
-          content.innerHTML = `<b>Resource Not Found</b>`;
-          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
-          break;
-        case 500: //server error
-          content.innerHTML = `<b>Internal Server Error</b>`;
-          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
-          break;
-        case 501: //not implemented
-          content.innerHTML = `<b>Not Implemented</b>`;
-          content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
-          break;
-        default: //default other errors we are not handling in this example
-          content.innerHTML = `Error code not implemented by client.`;
-          break;
+      // janky way to check but whatever
+      try {
+        ///parse the response text into a JSON object
+        const obj = JSON.parse(xhr.response);
+        
+        //check the xhr status code and handle accordingly
+        switch(xhr.status) {
+          case 200: //success
+            content.innerHTML = `<b>Success</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+            break;
+          case 400: //bad request 
+            content.innerHTML = `<b>Bad Request</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+            break;
+          case 401: //unauthorized
+            content.innerHTML = `<b>Unauthorized</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+            break;
+          case 403: //forbidden
+            content.innerHTML = `<b>Forbidden</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+            break;
+          case 404: //not found (requested resource does not exist)
+            content.innerHTML = `<b>Resource Not Found</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+            break;
+          case 500: //server error
+            content.innerHTML = `<b>Internal Server Error</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+            break;
+          case 501: //not implemented
+            content.innerHTML = `<b>Not Implemented</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${obj.message}</div>`;
+            break;
+          default: //default other errors we are not handling in this example
+            content.innerHTML = `Error code not implemented by client.`;
+            break;
+        }
+      }
+      catch(error) {// its xml 
+        console.dir(xhr);
+
+        //check the xhr status code and handle accordingly
+        switch(xhr.status) {
+          case 200: //success
+            content.innerHTML = `<b>Success</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${xhr.response}</div>`;
+            break;
+          case 400: //bad request 
+            content.innerHTML = `<b>Bad Request</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${xhr.response}</div>`;
+            break;
+          case 401: //unauthorized
+            content.innerHTML = `<b>Unauthorized</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${xhr.response}</div>`;
+            break;
+          case 403: //forbidden
+            content.innerHTML = `<b>Forbidden</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${xhr.response}</div>`;
+            break;
+          case 404: //not found (requested resource does not exist)
+            content.innerHTML = `<b>Resource Not Found</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${xhr.response}</div>`;
+            break;
+          case 500: //server error
+            content.innerHTML = `<b>Internal Server Error</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${xhr.response}</div>`;
+            break;
+          case 501: //not implemented
+            content.innerHTML = `<b>Not Implemented</b>`;
+            content.innerHTML = `${content.innerHTML}<div>Message: ${xhr.response}</div>`;
+            break;
+          default: //default other errors we are not handling in this example
+            content.innerHTML = `Error code not implemented by client.`;
+            break;
+        }
       }
     };
 
@@ -78,7 +117,7 @@
         const selectedValue = selection.options[selection.selectedIndex].value;
 
         const typeSelection =  document.querySelector("#type");
-        const typeSelectedValue = selection.options[typeSelection.selectedIndex].value;
+        const typeSelectedValue = typeSelection.options[typeSelection.selectedIndex].value;
 
         sendAjax(selectedValue, typeSelectedValue);
       };

@@ -14,6 +14,8 @@ const success = (request, response, acceptedTypes) => {
     message: 'This is a successful response',
   };
 
+  console.dir(acceptedTypes[0]);
+
   if (acceptedTypes[0] === 'text/xml') {
     let responseXML = '<response>';
     responseXML = `${responseXML} <message>This is a successful response</message>`;
